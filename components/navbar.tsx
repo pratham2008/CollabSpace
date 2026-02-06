@@ -64,6 +64,7 @@ export function Navbar() {
               <NavLink href="/explore">Explore</NavLink>
               <NavLink href="/about">About</NavLink>
               {isLoggedIn && <NavLink href="/app">Dashboard</NavLink>}
+              {isLoggedIn && <NavLink href="/app/chat">Chat</NavLink>}
             </div>
           </motion.div>
 
