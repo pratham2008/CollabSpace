@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Search, Filter, X, Users, Clock,
@@ -53,6 +54,7 @@ export function ExploreClient({
     initialProjects: Project[];
     initialFilters: Filters;
 }) {
+    const router = useRouter();
     const [search, setSearch] = useState(initialFilters.q);
     const [type, setType] = useState(initialFilters.type);
     const [showFilters, setShowFilters] = useState(false);
@@ -313,9 +315,13 @@ export function ExploreClient({
 
                                     {/* Footer */}
                                     <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                                        <Link
-                                            href={`/profile/${project.ownerCollabspaceId || project.ownerId}`}
-                                            onClick={(e) => e.stopPropagation()}
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                router.push(`/profile/${project.ownerCollabspaceId || project.ownerId}`);
+                                            }}
                                             className="flex items-center gap-2 hover:opacity-80 transition"
                                         >
                                             <div className="relative h-6 w-6 overflow-hidden rounded-full border border-white/10">
@@ -330,7 +336,7 @@ export function ExploreClient({
                                             <span className="text-xs text-slate-400 hover:text-sky-400 transition">
                                                 @{project.ownerCollabspaceId || "user"}
                                             </span>
-                                        </Link>
+                                        </button>
 
                                         <div className="flex items-center gap-3 text-[11px] text-slate-400">
                                             <span className="flex items-center gap-1">
