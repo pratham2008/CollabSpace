@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { CheckCircle2, Sparkles, Users } from "lucide-react";
 
 type TabKey = "why" | "how" | "who";
@@ -29,7 +29,7 @@ type CanvasState = {
 
 const AUTOPLAY_MS = 4200; // gives room for count animation (~1100ms) + readability
 
-const sectionIn = {
+const sectionIn: Variants = {
   hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
@@ -414,8 +414,8 @@ function StatusDot({ status }: { status: "idle" | "active" | "done" }) {
     status === "done"
       ? "bg-emerald-400/90"
       : status === "active"
-      ? "bg-sky-400/90"
-      : "bg-white/25";
+        ? "bg-sky-400/90"
+        : "bg-white/25";
 
   return <span className={`h-2 w-2 rounded-full ${cls}`} />;
 }
