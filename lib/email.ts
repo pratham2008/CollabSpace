@@ -39,7 +39,7 @@ export async function sendVerificationOTP(email: string, otp: string) {
                 
                 <!-- Logo -->
                 <h1 style="margin: 0 0 8px 0; font-size: 28px; font-weight: 600;">
-                  <span style="background: linear-gradient(135deg, #38bdf8, #67e8f9, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CollabSpace</span>
+                  <span style="color: #38bdf8;">CollabSpace</span>
                 </h1>
                 <p style="margin: 0 0 32px 0; color: rgba(148, 163, 184, 0.9); font-size: 14px;">
                   Find the right teammates for your projects
