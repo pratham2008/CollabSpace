@@ -14,14 +14,19 @@ async function getUser(userId: string) {
             emailVerified: users.emailVerified,
             collabspaceId: users.collabspaceId,
             image: users.image,
-            hasPassword: users.hasPassword,
+            passwordHash: users.passwordHash,
             createdAt: users.createdAt,
         })
         .from(users)
         .where(eq(users.id, userId))
         .limit(1);
 
-    return user;
+    // Convert passwordHash to hasPassword boolean for the client
+    return user ? {
+        ...user,
+        hasPassword: !!user.passwordHash,
+        passwordHash: undefined, // Don't send to client
+    } : null;
 }
 
 export default async function SettingsPage() {
