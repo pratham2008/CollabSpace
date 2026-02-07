@@ -130,8 +130,8 @@ export function Navbar() {
                         <MenuLink href={`/profile/${session.user?.collabspaceId || session.user?.id}`} icon={<User className="h-4 w-4" />}>
                           View Profile
                         </MenuLink>
-                        <MenuLink href="/app/profile/edit" icon={<Settings className="h-4 w-4" />}>
-                          Edit Profile
+                        <MenuLink href="/app/settings" icon={<Settings className="h-4 w-4" />}>
+                          Settings
                         </MenuLink>
                       </div>
 
