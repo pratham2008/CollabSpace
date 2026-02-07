@@ -1,6 +1,15 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Create reusable transporter using Brevo SMTP
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || "smtp-relay.brevo.com",
+  port: parseInt(process.env.SMTP_PORT || "587"),
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 const emailFrom = process.env.EMAIL_FROM || "CollabSpace <noreply@collabspace.dev>";
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
@@ -13,7 +22,7 @@ export function generateOTP(): string {
 // Send OTP for email verification
 export async function sendVerificationOTP(email: string, otp: string) {
   try {
-    await resend.emails.send({
+    await transporter.sendMail({
       from: emailFrom,
       to: email,
       subject: `${otp} is your CollabSpace verification code`,
@@ -75,7 +84,7 @@ export async function sendVerificationOTP(email: string, otp: string) {
 // Send OTP for password reset
 export async function sendPasswordResetOTP(email: string, otp: string) {
   try {
-    await resend.emails.send({
+    await transporter.sendMail({
       from: emailFrom,
       to: email,
       subject: `${otp} is your CollabSpace password reset code`,
@@ -120,7 +129,7 @@ export async function sendJoinRequestNotification(
   requesterName: string
 ) {
   try {
-    await resend.emails.send({
+    await transporter.sendMail({
       from: emailFrom,
       to: ownerEmail,
       subject: `New join request for ${projectTitle}`,
